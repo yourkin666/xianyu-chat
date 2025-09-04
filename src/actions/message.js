@@ -52,7 +52,7 @@ async function clickMessageButton(page) {
 }
 
 /**
- * 获取消息按钮的选择器列表
+ * 获取消息按钮的选择器列表（优化后，保留最有效的选择器）
  * @returns {Array<string>} 选择器数组
  */
 function getMessageButtonSelectors() {
@@ -62,23 +62,15 @@ function getMessageButtonSelectors() {
         
         // 🔍 精确匹配 - 基于数据属性和链接
         'a[data-spm-anchor-id="a21ybx.home.sidebar.2"][href*="/im"]',
-        'a[href*="/im"][data-spm-anchor-id*="home.sidebar.2"]',
         
         // 📝 文本验证组合 - 确保包含"消息"文字
-        'a.sidebar-item-wrap--EGyyd81t:has-text("消息")',
-        'a[data-spm-anchor-id*="home.sidebar.2"]:has-text("消息")',
         'a:has-text("消息")[href*="/im"]',
         
-        // 🛡️ 安全备用 - 只有在前面失败时使用
-        'a.sidebar-item-wrap--EGyyd81t[data-spm-anchor-id="a21ybx.home.sidebar.2"]',
+        // 🛡️ 安全备用 - SPM属性匹配
         'a[data-spm-anchor-id="a21ybx.home.sidebar.2"]',
         
-        // 🔧 兼容性备用 - 应对HTML结构变化
-        'a:has(div:text("消息"))[class*="sidebar-item-wrap"]',
-        'a:has(img.icon-big--gxPveA3X):has-text("消息")',
-        
-        // ⚡ 最后备用 - 通过图片和文本组合
-        'a:has(img[src*="1709-2-tps-78-78.png"]):has-text("消息")'
+        // 🔧 兼容性备用 - 类名和文本组合
+        'a:has-text("消息")[class*="sidebar-item-wrap"]'
     ];
 }
 
@@ -137,7 +129,6 @@ async function performClick(page, element) {
         
         // 等待页面跳转
         await page.waitForTimeout(ACTION_CONFIG.TIMEOUTS.AFTER_CLICK);
-        console.log(`🔗 当前页面: ${page.url()}`);
         
         // 检查是否成功跳转到IM页面
         if (page.url().includes('/im')) {

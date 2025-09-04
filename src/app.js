@@ -1,6 +1,6 @@
 // 闲鱼自动化工具 - 应用主逻辑
 
-const { visitXianyuWithMessage } = require('./services/browser');
+const { visitXianyu } = require('./services/browser');
 
 /**
  * 应用主类
@@ -31,7 +31,7 @@ class XianyuApp {
         
         try {
             console.log('🚀 启动完整功能模式...');
-            const success = await visitXianyuWithMessage();
+            const success = await visitXianyu({ clickMessage: true });
             
             if (success) {
                 console.log('');

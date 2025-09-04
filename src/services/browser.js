@@ -24,10 +24,8 @@ async function visitXianyu(options = { clickMessage: true }) {
     
     try {
         // 创建浏览器上下文
-        const context = await createBrowserContext(browser);
-        if (!context) {
-            return false;
-        }
+        const context = await browser.newContext(BROWSER_CONFIG.CONTEXT_OPTIONS);
+        console.log('✅ 浏览器上下文创建成功');
         
         // 设置Cookie
         const cookieSetSuccess = await setCookiesToContext(context, COOKIE_STRING, BROWSER_CONFIG.WEBSITE.DOMAIN);
@@ -36,18 +34,21 @@ async function visitXianyu(options = { clickMessage: true }) {
         }
         
         // 访问网站
-        const page = await visitWebsite(context);
-        if (!page) {
-            return false;
-        }
+        const page = await context.newPage();
+        console.log('🌐 访问闲鱼网站...');
+        await page.goto(BROWSER_CONFIG.WEBSITE.URL, {
+            waitUntil: 'domcontentloaded',
+            timeout: BROWSER_CONFIG.WEBSITE.TIMEOUT
+        });
+        console.log('✅ 页面加载完成');
+        await page.waitForTimeout(ACTION_CONFIG.TIMEOUTS.PAGE_LOAD);
         
         // 执行操作
         let operationSuccess = true;
         if (options.clickMessage) {
-            operationSuccess = await executeMessageButtonClick(page);
+            operationSuccess = await clickMessageButton(page);
         } else {
             console.log('🎉 成功访问闲鱼网站并设置登录状态！');
-            console.log(`🔗 当前页面: ${page.url()}`);
         }
         
         // 等待观察结果
@@ -65,83 +66,8 @@ async function visitXianyu(options = { clickMessage: true }) {
     }
 }
 
-/**
- * 创建浏览器上下文
- * @param {Object} browser - Playwright浏览器实例
- * @returns {Promise<Object|null>} 浏览器上下文对象
- */
-async function createBrowserContext(browser) {
-    try {
-        const context = await browser.newContext(BROWSER_CONFIG.CONTEXT_OPTIONS);
-        console.log('✅ 浏览器上下文创建成功');
-        return context;
-    } catch (error) {
-        console.error(`❌ 创建浏览器上下文失败: ${error.message}`);
-        return null;
-    }
-}
 
-/**
- * 访问闲鱼网站
- * @param {Object} context - 浏览器上下文
- * @returns {Promise<Object|null>} 页面对象
- */
-async function visitWebsite(context) {
-    try {
-        const page = await context.newPage();
-        
-        // 访问闲鱼网站
-        console.log('🌐 访问闲鱼网站...');
-        await page.goto(BROWSER_CONFIG.WEBSITE.URL, {
-            waitUntil: 'domcontentloaded',
-            timeout: BROWSER_CONFIG.WEBSITE.TIMEOUT
-        });
-        
-        console.log('✅ 页面加载完成');
-        await page.waitForTimeout(ACTION_CONFIG.TIMEOUTS.PAGE_LOAD);
-        
-        return page;
-    } catch (error) {
-        console.error(`❌ 访问网站失败: ${error.message}`);
-        return null;
-    }
-}
-
-/**
- * 执行消息按钮点击操作
- * @param {Object} page - 页面对象
- * @returns {Promise<boolean>} 操作是否成功
- */
-async function executeMessageButtonClick(page) {
-    try {
-        const success = await clickMessageButton(page);
-        
-        if (success) {
-            console.log('🎉 操作成功完成！成功访问消息页面');
-        } else {
-            console.log('⚠️ 消息按钮点击失败，但网站访问成功');
-        }
-        
-        return success;
-    } catch (error) {
-        console.error(`❌ 消息按钮点击操作失败: ${error.message}`);
-        return false;
-    }
-}
-
-
-/**
- * 访问闲鱼网站并点击消息按钮（完整功能）
- * @returns {Promise<boolean>} 操作是否成功
- */
-async function visitXianyuWithMessage() {
-    return await visitXianyu({ clickMessage: true });
-}
 
 module.exports = {
-    visitXianyu,
-    visitXianyuWithMessage,
-    createBrowserContext,
-    visitWebsite,
-    executeMessageButtonClick
+    visitXianyu
 };
