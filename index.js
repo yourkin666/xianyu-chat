@@ -34,7 +34,7 @@ module.exports = {
     
     // 导出子模块（高级用法）
     browser: require('./src/services/browser'),
-    message: require('./src/actions/message'),
+    message: require('./src/actions/clickMessageButton'),
     cookie: require('./src/utils/cookie'),
     config: require('./src/config'),
     

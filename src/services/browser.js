@@ -3,7 +3,7 @@
 const { chromium } = require('playwright');
 const { BROWSER_CONFIG, ACTION_CONFIG, COOKIE_STRING } = require('../config');
 const { setCookiesToContext, validateCookie } = require('../utils/cookie');
-const { clickMessageButton } = require('../actions/message');
+const { clickMessageButton } = require('../actions/clickMessageButton');
 
 /**
  * 访问闲鱼网站并执行操作
