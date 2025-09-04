@@ -1,0 +1,40 @@
+# 环境配置文件 (包含敏感信息，不应提交)
+.env
+
+# Node.js 相关
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 依赖管理文件
+package-lock.json
+
+# 日志文件
+*.log
+logs/
+
+# IDE 和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统生成的文件
+.DS_Store
+Thumbs.db
+
+# 临时文件和缓存
+*.tmp
+*.cache
+.temp/
+
+# 截图和测试生成的文件
+screenshots/*.png
+test-results/
+playwright-report/
+test-results/
+
+# 浏览器用户数据
+user-data-dir/

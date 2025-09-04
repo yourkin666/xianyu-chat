@@ -1,0 +1,26 @@
+{
+  "name": "xianyu-playwright",
+  "version": "1.0.0",
+  "description": "使用 Playwright 访问闲鱼网站",
+  "main": "xianyu.js",
+  "scripts": {
+    "start": "node xianyu.js",
+    "install-deps": "npx playwright install",
+    "test": "node xianyu.js",
+    "test-cookie": "node -e \"require('./xianyu.js').testCookieLogin()\"",
+    "test-message": "node -e \"require('./xianyu.js').testClickMessageButton()\"",
+    "test-captcha": "node -e \"require('./xianyu.js').testCaptchaHandling()\""
+  },
+  "keywords": [
+    "playwright",
+    "xianyu",
+    "automation",
+    "web-scraping"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "playwright": "^1.40.0"
+  }
+}
