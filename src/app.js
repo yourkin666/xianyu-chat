@@ -1,6 +1,6 @@
 // 闲鱼自动化工具 - 应用主逻辑
 
-const { visitXianyuWithMessage, visitXianyuSimple } = require('./services/browser');
+const { visitXianyuWithMessage } = require('./services/browser');
 
 /**
  * 应用主类
@@ -48,32 +48,6 @@ class XianyuApp {
         }
     }
 
-    /**
-     * 运行简单模式（只访问网站）
-     * @returns {Promise<boolean>} 执行结果
-     */
-    async runSimple() {
-        console.log(`🎯 ${this.name} (简单模式)`);
-        console.log('═'.repeat(30));
-        
-        try {
-            console.log('🚀 启动简单访问模式...');
-            const success = await visitXianyuSimple();
-            
-            if (success) {
-                console.log('');
-                console.log('✅ 网站访问完成！');
-            } else {
-                console.log('');
-                console.log('⚠️ 网站访问遇到问题');
-            }
-            
-            return success;
-        } catch (error) {
-            console.error(`❌ 简单模式执行失败: ${error.message}`);
-            return false;
-        }
-    }
 
     /**
      * 获取应用信息

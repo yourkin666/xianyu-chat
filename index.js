@@ -14,38 +14,22 @@ async function main() {
     return await app.runFull();
 }
 
-/**
- * 简单模式 - 只访问网站，不点击消息按钮
- */
-async function simpleMode() {
-    return await app.runSimple();
-}
-
 // 运行脚本
 if (require.main === module) {
-    // 检查命令行参数
-    const args = process.argv.slice(2);
-    const isSimpleMode = args.includes('--simple') || args.includes('-s');
-    
-    if (isSimpleMode) {
-        simpleMode().catch(console.error);
-    } else {
-        main().catch(console.error);
-    }
+    // 运行主功能
+    main().catch(console.error);
 }
 
 // 导出核心功能
 module.exports = {
     // 主要功能
     main,
-    simpleMode,
     
     // 应用实例
     app,
     
     // 向后兼容的功能别名
     visitXianyu: main,
-    visitXianyuSimple: simpleMode,
     visitXianyuWithMessage: main,
     
     // 导出子模块（高级用法）

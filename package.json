@@ -2,14 +2,15 @@
   "name": "xianyu-playwright",
   "version": "1.0.0",
   "description": "使用 Playwright 访问闲鱼网站",
-  "main": "xianyu.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node xianyu.js",
+    "start": "node index.js",
     "install-deps": "npx playwright install",
-    "test": "node xianyu.js",
-    "test-cookie": "node -e \"require('./xianyu.js').testCookieLogin()\"",
-    "test-message": "node -e \"require('./xianyu.js').testClickMessageButton()\"",
-    "test-captcha": "node -e \"require('./xianyu.js').testCaptchaHandling()\""
+    "test": "node test/index.js",
+    "test-cookie": "node -e \"require('./test/index.js').testCookieLogin()\"",
+    "test-message": "node -e \"require('./test/index.js').testClickMessageButton()\"",
+    "test-captcha": "node -e \"require('./test/index.js').testCaptchaHandling()\"",
+    "test-all": "node test/index.js"
   },
   "keywords": [
     "playwright",

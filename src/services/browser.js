@@ -129,13 +129,6 @@ async function executeMessageButtonClick(page) {
     }
 }
 
-/**
- * 简单访问闲鱼网站（不点击消息按钮）
- * @returns {Promise<boolean>} 访问是否成功
- */
-async function visitXianyuSimple() {
-    return await visitXianyu({ clickMessage: false });
-}
 
 /**
  * 访问闲鱼网站并点击消息按钮（完整功能）
@@ -147,7 +140,6 @@ async function visitXianyuWithMessage() {
 
 module.exports = {
     visitXianyu,
-    visitXianyuSimple,
     visitXianyuWithMessage,
     createBrowserContext,
     visitWebsite,
